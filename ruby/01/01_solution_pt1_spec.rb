@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative '01_solution'
+require_relative '01_solution_pt1'
 
 describe '.calculate_result' do
 
