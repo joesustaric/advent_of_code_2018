@@ -14,7 +14,6 @@ class ResultFreq
   attr_reader :current_freq, :delta, :new_freq
 end
 
-# parse input [ delta, delta, delta ]
 def generate_input_as_hash(input_file_location)
   result = []
   File.readlines(input_file_location).each { |l| result << Integer(l) }
