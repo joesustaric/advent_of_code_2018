@@ -31,6 +31,7 @@ def load_file(file_name)
 end
 
 def fabric(input_file, length, width)
+  result = 0
   total_fabric = Array.new(length) { Array.new(width, :empty) }
 
   input = load_file(input_file)
@@ -48,16 +49,9 @@ def fabric(input_file, length, width)
           total_fabric[x][y] = :single
         elsif total_fabric[x][y] == :single
           total_fabric[x][y] = :multiple
+          result += 1
         end
       end
-    end
-  end
-
-
-  result = 0
-  (0..(length-1)).each do |x|
-    (0..(width-1)).each do |y|
-      result += 1 if total_fabric[x][y] == :multiple
     end
   end
 
@@ -65,20 +59,18 @@ def fabric(input_file, length, width)
 end
 
 puts fabric('input.txt',1000,1000)
-
-# ~/m/a/r/03 ❯❯❯ time bundle exec ruby 03_solution_pt1.rb                                                                      master ◼
-# bundle exec ruby 03_solution_pt1.rb  0.81s user 0.17s system 95% cpu 1.028 total
-# ~/m/a/r/03 ❯❯❯ time bundle exec ruby 03_solution_pt1.rb                                                                      master ◼
-# bundle exec ruby 03_solution_pt1.rb  0.80s user 0.17s system 96% cpu 1.009 total
-# ~/m/a/r/03 ❯❯❯ time bundle exec ruby 03_solution_pt1.rb                                                                      master ◼
-# bundle exec ruby 03_solution_pt1.rb  0.78s user 0.16s system 97% cpu 0.975 total
-# ~/m/a/r/03 ❯❯❯ time bundle exec ruby 03_solution_pt1.rb                                                                      master ◼
-# bundle exec ruby 03_solution_pt1.rb  0.77s user 0.16s system 96% cpu 0.965 total
-# ~/m/a/r/03 ❯❯❯ time bundle exec ruby 03_solution_pt1.rb                                                                      master ◼
-# bundle exec ruby 03_solution_pt1.rb  0.79s user 0.16s system 96% cpu 0.989 total
-# ~/m/a/r/03 ❯❯❯ time bundle exec ruby 03_solution_pt1.rb                                                                      master ◼
-# bundle exec ruby 03_solution_pt1.rb  0.77s user 0.16s system 96% cpu 0.958 total
-# ~/m/a/r/03 ❯❯❯ time bundle exec ruby 03_solution_pt1.rb                                                                      master ◼
-# bundle exec ruby 03_solution_pt1.rb  0.79s user 0.16s system 96% cpu 0.987 total
-# ~/m/a/r/03 ❯❯❯ time bundle exec ruby 03_solution_pt1.rb                                                                      master ◼
-# bundle exec ruby 03_solution_pt1.rb  0.80s user 0.17s system 96% cpu 0.999 total
+#
+# ~/m/a/r/03 ❯❯❯ time bundle exec ruby 03_solution_pt1.rb                                                                    master ✱ ◼
+# bundle exec ruby 03_solution_pt1.rb  0.74s user 0.17s system 96% cpu 0.939 total
+# ~/m/a/r/03 ❯❯❯ time bundle exec ruby 03_solution_pt1.rb                                                                    master ✱ ◼
+# bundle exec ruby 03_solution_pt1.rb  0.72s user 0.16s system 96% cpu 0.916 total
+# ~/m/a/r/03 ❯❯❯ time bundle exec ruby 03_solution_pt1.rb                                                                    master ✱ ◼
+# bundle exec ruby 03_solution_pt1.rb  0.74s user 0.17s system 96% cpu 0.942 total
+# ~/m/a/r/03 ❯❯❯ time bundle exec ruby 03_solution_pt1.rb                                                                    master ✱ ◼
+# bundle exec ruby 03_solution_pt1.rb  0.75s user 0.17s system 96% cpu 0.948 total
+# ~/m/a/r/03 ❯❯❯ time bundle exec ruby 03_solution_pt1.rb                                                                    master ✱ ◼
+# bundle exec ruby 03_solution_pt1.rb  0.73s user 0.16s system 96% cpu 0.926 total
+# ~/m/a/r/03 ❯❯❯ time bundle exec ruby 03_solution_pt1.rb                                                                    master ✱ ◼
+# bundle exec ruby 03_solution_pt1.rb  0.67s user 0.15s system 96% cpu 0.846 total
+# ~/m/a/r/03 ❯❯❯ time bundle exec ruby 03_solution_pt1.rb                                                                    master ✱ ◼
+# bundle exec ruby 03_solution_pt1.rb  0.70s user 0.16s system 96% cpu 0.894 total
