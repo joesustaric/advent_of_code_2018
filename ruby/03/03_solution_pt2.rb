@@ -6,15 +6,12 @@ class Claim
   def initialize(input)
     @input = input.strip
     @locations = []
-    claim_number
   end
 
   attr_accessor :locations
 
   def overlaps_another_claim?
-    @locations.each do |location|
-      return true if location.state == :multiple
-    end
+    @locations.each { |location| return true if location.state == :multiple }
     false
   end
 
@@ -23,11 +20,11 @@ class Claim
   end
 
   def length
-    @length ||= @input.split(':')[1].strip.split('x')[0].to_i
+    @length ||= @input.split(':')[1].strip.split('x')[0].to_i - 1
   end
 
   def width
-    @width ||= @input.split(':')[1].strip.split('x')[1].to_i
+    @width ||= @input.split(':')[1].strip.split('x')[1].to_i - 1
   end
 
   def inches_from_left_edge
@@ -39,12 +36,6 @@ class Claim
   end
 end
 
-def load_file(file_name)
-  result = []
-  File.readlines(file_name).each { |line| result << line }
-  result
-end
-
 class Location
   def initialize()
     @state = :empty
@@ -53,30 +44,35 @@ class Location
   attr_accessor :state
 end
 
-def winning_claim(input_file, length, width)
+def load_file(file_name)
+  result = []
+  File.readlines(file_name).each { |line| result << line }
+  result
+end
 
-  total_fabric = Array.new(length) { Array.new(width) }
-
+def init_fabric_state(length, width)
+  array = Array.new(length) { Array.new(width) }
   (0..(length -1)).each do |x|
     (0..(width -1)).each do |y|
-      total_fabric[x][y] = Location.new
+      array[x][y] = Location.new
     end
   end
+  array
+end
 
+def winning_claim(input_file, length, width)
+  total_fabric = init_fabric_state(length, width)
   input = load_file(input_file)
-
   claims = []
 
   input.each do |line|
     claim = Claim.new(line)
 
-    (0..(claim.length-1)).each do |add_to_length|
-      x = claim.inches_from_left_edge + add_to_length
+    (0..claim.length).each do |y_offset|
+      x = claim.inches_from_left_edge + y_offset
 
-      (0..(claim.width-1)).each do |add_to_width|
-
-        y = claim.inches_from_top_edge + add_to_width
-
+      (0..claim.width).each do |x_offset|
+        y = claim.inches_from_top_edge + x_offset
 
         if total_fabric[x][y].state == :empty
           total_fabric[x][y].state = :single
@@ -96,7 +92,7 @@ def winning_claim(input_file, length, width)
 end
 
 puts winning_claim('input.txt',1000,1000)
-#
+
 # ~/m/a/r/03 ❯❯❯ time bundle exec ruby 03_solution_pt2.rb                                                                                                                                       ✘ 15 master ◼
 # bundle exec ruby 03_solution_pt2.rb  0.91s user 0.17s system 97% cpu 1.107 total
 # ~/m/a/r/03 ❯❯❯ time bundle exec ruby 03_solution_pt2.rb                                                                                                                                            master ◼
