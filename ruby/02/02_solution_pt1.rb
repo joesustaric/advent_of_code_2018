@@ -3,7 +3,7 @@
 def checksum(input_file)
   input = load_file(input_file)
 
-  exactly_twice_match, exactly_thrice_match = 0, 0
+  double_letter_matches, triple_letter_matches = 0, 0
 
   input.each do |barcode|
     has_2, has_3 = false, false
@@ -11,15 +11,14 @@ def checksum(input_file)
     barcode.strip.split(//).uniq.each do |letter|
       has_2 = matching_letters_n_times(barcode.strip, letter, 2) unless has_2
       has_3 = matching_letters_n_times(barcode.strip, letter, 3) unless has_3
-
       break if has_2 && has_3
     end
 
-    exactly_twice_match += 1 if has_2
-    exactly_thrice_match += 1 if has_3
+    double_letter_matches += 1 if has_2
+    triple_letter_matches += 1 if has_3
   end
 
-  exactly_twice_match * exactly_thrice_match
+  double_letter_matches * triple_letter_matches
 end
 
 def matching_letters_n_times(input_string, letter, exact_number_of_matches)
