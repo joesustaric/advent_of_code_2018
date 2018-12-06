@@ -51,13 +51,7 @@ def load_file(file_name)
 end
 
 def init_fabric_state(length, width)
-  array = Array.new(length) { Array.new(width) }
-  (0..(length -1)).each do |x|
-    (0..(width -1)).each do |y|
-      array[x][y] = Location.new
-    end
-  end
-  array
+  Array.new(length) { Array.new(width) { Location.new } }
 end
 
 def winning_claim(input_file, length, width)

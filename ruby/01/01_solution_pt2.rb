@@ -2,7 +2,6 @@
 
 require 'set'
 
-
 class ResultFreq
 
   def initialize(current_freq:, delta:)
@@ -24,11 +23,7 @@ def find_duplicate_freq(freq_set, input_deltas, previous_freq)
   current_freq = previous_freq
 
   input_deltas.each do |delta|
-    r = ResultFreq.new(
-      current_freq: current_freq,
-      delta: delta
-    )
-
+    r = ResultFreq.new(current_freq: current_freq, delta: delta )
     return r.new_freq if freq_set.include?(r.new_freq)
 
     current_freq = r.new_freq

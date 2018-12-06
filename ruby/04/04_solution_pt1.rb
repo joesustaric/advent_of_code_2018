@@ -53,7 +53,7 @@ class Guard
   def set_awake_times(input)
     start_sleeping_at = Time.parse(input.match(/\d+-\d+-\d+ \d+:\d+/).to_s)
 
-    (@last_awake_from.min..(start_sleeping_at.min - 1)).each do |awake_min|
+    (@last_awake_from.min...start_sleeping_at.min).each do |awake_min|
       @awake[awake_min].nil? ? @awake[awake_min] = 1 : @awake[awake_min] += 1
     end
 
@@ -64,7 +64,7 @@ class Guard
     awake_at = Time.parse(input.match(/\d+-\d+-\d+ \d+:\d+/).to_s)
     awake_from(input)
 
-    (@start_sleeping.min..(awake_at.min - 1)).each do |asleep_min|
+    (@start_sleeping.min...(awake_at.min)).each do |asleep_min|
       @asleep[asleep_min].nil? ? @asleep[asleep_min] = 1 : @asleep[asleep_min] += 1
     end
   end
@@ -91,7 +91,7 @@ class Guard
     most_sleepy_time = 0
     result = nil
     guards.each do |guard|
-      total_min_asleep = guard.asleep.values.inject { |a, b| a + b }
+      total_min_asleep = guard.asleep.values.inject { |a, b| a + b } #.sum
       if !total_min_asleep.nil? && total_min_asleep > most_sleepy_time
         result = guard
         most_sleepy_time = total_min_asleep
