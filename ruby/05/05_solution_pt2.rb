@@ -14,8 +14,8 @@ def foo(input)
   x = ''
 
   ('a'..'z').each do |letter|
-    x = input.gsub(/#{letter}/, '')
-    x = x.gsub(/#{letter.upcase}/, '')
+    x = input.gsub(/#{letter}|#{letter.upcase}/, '')
+    # x = x.gsub(/, '')
     letters_and_counts[letter] = react(x)
   end
 
